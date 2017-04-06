@@ -1,3 +1,5 @@
+{-# LANGUAGE LambdaCase #-}
+
 import Control.Monad.Identity
 import Control.Monad.State hiding (State)
 
@@ -22,16 +24,14 @@ initState = 0
  - transite :: (a, s) -> s
  -}
 transite :: Char -> FState ()
-transite 'a' = modify $ \s ->
-  case s of
-    0 -> 1
-    1 -> 2
-    2 -> 0
-transite 'b' = modify $ \s ->
-  case s of
-    0 -> 2
-    1 -> 0
-    2 -> 2
+transite 'a' = modify $ \case
+  0 -> 1
+  1 -> 2
+  2 -> 0
+transite 'b' = modify $ \case
+  0 -> 2
+  1 -> 0
+  2 -> 2
 transite _ = error "This machine only recognises inputs 'a' and 'b'"
 
 {- Runs a list of computations. Since this machine
@@ -47,10 +47,9 @@ runComputation (x:xs) = transite x >> runComputation xs
  - computation in anywhere between our actual transitions.
  -}
 decide :: FState Bool
-decide = gets $ \s ->
-  case s of
-    2 -> True
-    _ -> False
+decide = gets $ \case
+  2 -> True
+  _ -> False
 
 {- Repl loop. Basically takes strings and feeds it to
  - our state computation one by one.
