@@ -10,9 +10,10 @@ $ cabal sandbox init
 $ cabal install
 $ cabal run
 ```
-You can supply any string consisting of characters `a` and `b` to REPL that is opened when you run `cabal run`. It is context aware, meaning that the following two streams are the same:
+You can supply any string consisting of characters `a` and `b` to REPL that is opened when you run `cabal run`. It is context aware, meaning that the eventual result of the following two streams are the same:
 ```
 > aaaab
+False
 > baaa
 True
 ```
