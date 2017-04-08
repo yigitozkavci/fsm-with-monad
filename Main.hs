@@ -46,8 +46,8 @@ runComputation (x:xs) = transite x >> runComputation xs
  - state. Since it does not change the state, we can insert this
  - computation in anywhere between our actual transitions.
  -}
-decide :: FState Bool
-decide = gets $ \case
+snapshot :: FState Bool
+snapshot = gets $ \case
   2 -> True
   _ -> False
 
@@ -57,7 +57,7 @@ decide = gets $ \case
 loop :: Int -> IO ()
 loop state = do
   stream <- getLine
-  let (result, s') = runState (runComputation stream >> decide) state
+  let (result, s') = runState (runComputation stream >> snapshot) state
   print result
   loop s'
 
