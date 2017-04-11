@@ -9,10 +9,7 @@ import Control.Monad.State hiding (State)
  -}
 type State s = StateT s Identity
 
-{- Our FState can generate side effects (like `decide` does) or not
- - (like `transite` does). `a` in the type constructor is the side effect
- - and Int part in the data constructor is the state id.
- -}
+{- A type synonym for convenience like typedef in c/cpp. -}
 type FState a = State Int a
 
 {- Start state, namely S0
